@@ -12,7 +12,7 @@ function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // 🔥 Scroll function
+  // Scroll 
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
@@ -27,7 +27,7 @@ function Navbar() {
       }`}
       data-wow-delay="0.1s"
     >
-      {/* Top Bar (UNCHANGED) */}
+      {/* Top Bar  */}
       <div className="top-bar row gx-0 align-items-center d-none d-lg-flex">
         <div className="col-lg-6 px-5 text-start">
           <small>
@@ -98,7 +98,7 @@ function Navbar() {
 
           </div>
 
-          {/* Social Icons (UNCHANGED) */}
+          {/* Social Icons  */}
           <div className="d-none d-lg-flex ms-2">
             <a className="btn btn-light btn-sm-square rounded-circle ms-3" href="#">
               <small className="fab fa-facebook-f text-primary"></small>

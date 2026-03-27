@@ -1,46 +1,32 @@
-import { useState } from "react";
-
-import service1 from "../assets/img/service-1.jpg";
-import service2 from "../assets/img/service-2.jpg";
-import service3 from "../assets/img/service-3.jpg";
-import service4 from "../assets/img/service-4.jpg";
+import { useEffect, useState } from "react";
+import { getServices } from "../api/api";
 
 function Services() {
-
-  const services = [
-    {
-      title: "Financial Planning",
-      image: service1,
-      description:
-        "Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos.",
-    },
-    {
-      title: "Cash Investment",
-      image: service2,
-      description:
-        "Clita erat ipsum et lorem et sit. Sed stet lorem sit clita duo justo magna dolore erat amet.",
-    },
-    {
-      title: "Financial Consultancy",
-      image: service3,
-      description:
-        "Diam dolor diam ipsum sit. Aliqu diam amet diam et eos labore lorem ipsum.",
-    },
-    {
-      title: "Business Loans",
-      image: service4,
-      description:
-        "Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit.",
-    },
-  ];
-
+  const [services, setServices] = useState([]);
   const [activeService, setActiveService] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getServices();
+        console.log("SERVICE API:", res.data);
+        setServices(res.data.data);
+      } catch (error) {
+        console.error("Error fetching services:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  //  IMAGE PATH
+  const imageUrl = services[activeService]?.image?.[0]?.url;
 
   return (
     <div className="container-xxl py-5">
       <div className="container">
 
-        {/* Title */}
+        {/* TITLE */}
         <div className="text-center mx-auto mb-5 wow fadeInUp" style={{ maxWidth: "600px" }}>
           <p className="d-inline-block border rounded text-primary fw-semi-bold py-1 px-3">
             Our Services
@@ -57,9 +43,11 @@ function Services() {
 
             {services.map((service, index) => (
               <button
-                key={index}
+                key={service.id}
                 className={`nav-link w-100 text-start mb-3 ${
-                  activeService === index ? "active btn btn-primary text-white" : "btn btn-light"
+                  activeService === index
+                    ? "active btn btn-primary text-white"
+                    : "btn btn-light"
                 }`}
                 onClick={() => setActiveService(index)}
               >
@@ -72,11 +60,15 @@ function Services() {
 
           {/* IMAGE */}
           <div className="col-lg-4 wow fadeInUp">
-            <img
-              className="img-fluid rounded"
-              src={services[activeService].image}
-              alt="service"
-            />
+
+            {imageUrl && (
+              <img
+                className="img-fluid rounded"
+                src={`http://localhost:1337${imageUrl}`}
+                alt="service"
+              />
+            )}
+
           </div>
 
           {/* CONTENT */}
@@ -87,7 +79,7 @@ function Services() {
             </h3>
 
             <p className="mb-4">
-              {services[activeService].description}
+              {services[activeService]?.description}
             </p>
 
             <p>

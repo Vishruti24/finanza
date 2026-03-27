@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { createContact } from "../api/api";
 
 function Contact() {
-
+   
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,11 +17,29 @@ function Contact() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Message Sent Successfully!");
-    console.log(formData);
+
+    try {
+      await createContact(formData);
+
+      alert("Message Sent Successfully!");
+
+      // clear form
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Something went wrong!");
+    }
   };
+
+ 
 
   return (
     <div className="container-xxl py-5">

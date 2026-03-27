@@ -1,4 +1,22 @@
+import { useEffect, useState } from "react";
+import { getFooter } from "../api/api";
+
 function Footer() {
+  const [footer, setFooter] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getFooter();
+        setFooter(res.data.data[0]); // only one entry
+      } catch (error) {
+        console.error("Error fetching footer:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="container-fluid bg-dark text-light footer mt-5 py-5">
 
@@ -7,27 +25,28 @@ function Footer() {
 
           {/* Company Info */}
           <div className="col-lg-3 col-md-6">
-            <h4 className="text-white mb-4">Finanza</h4>
+            <h4 className="text-white mb-4">
+              {footer?.companyName}
+            </h4>
 
             <p>
-              Diam dolor diam ipsum sit. Aliqu diam amet diam et eos.
-              Clita erat ipsum et lorem et sit.
+              {footer?.description}
             </p>
 
             <div className="d-flex pt-2">
-              <a className="btn btn-square btn-outline-light rounded-circle me-2" href="#">
+              <a className="btn btn-square btn-outline-light rounded-circle me-2" href={footer?.twitter}>
                 <i className="fab fa-twitter"></i>
               </a>
 
-              <a className="btn btn-square btn-outline-light rounded-circle me-2" href="#">
+              <a className="btn btn-square btn-outline-light rounded-circle me-2" href={footer?.facebook}>
                 <i className="fab fa-facebook-f"></i>
               </a>
 
-              <a className="btn btn-square btn-outline-light rounded-circle me-2" href="#">
+              <a className="btn btn-square btn-outline-light rounded-circle me-2" href={footer?.youtube}>
                 <i className="fab fa-youtube"></i>
               </a>
 
-              <a className="btn btn-square btn-outline-light rounded-circle" href="#">
+              <a className="btn btn-square btn-outline-light rounded-circle" href={footer?.linkedin}>
                 <i className="fab fa-linkedin-in"></i>
               </a>
             </div>
@@ -39,21 +58,21 @@ function Footer() {
 
             <p>
               <i className="fa fa-map-marker-alt me-3"></i>
-              123 Street, New York, USA
+              {footer?.address}
             </p>
 
             <p>
               <i className="fa fa-phone me-3"></i>
-              +012 345 67890
+              {footer?.phone}
             </p>
 
             <p>
               <i className="fa fa-envelope me-3"></i>
-              info@example.com
+              {footer?.email}
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links (STATIC OK) */}
           <div className="col-lg-3 col-md-6">
             <h4 className="text-white mb-4">Quick Links</h4>
 
@@ -69,7 +88,7 @@ function Footer() {
             <h4 className="text-white mb-4">Newsletter</h4>
 
             <p>
-              Dolor amet sit justo amet elitr clita ipsum elitr est.
+              {footer?.newsletterText}
             </p>
 
             <div className="position-relative w-100">

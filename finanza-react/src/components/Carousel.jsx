@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getCarousels } from "../api/api";
 
 function Carousel() {
   const [slides, setSlides] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:1337/api/carousels?populate=*")
+    getCarousels()
       .then((res) => {
-        console.log("API DATA:", res.data); // debug
+        console.log("API DATA:", res.data);
         setSlides(res.data.data);
         setLoading(false);
       })
@@ -19,12 +18,10 @@ function Carousel() {
       });
   }, []);
 
-  // 🔥 Loading
   if (loading) {
     return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
   }
 
-  // 🔥 No data
   if (!slides || slides.length === 0) {
     return <h2 style={{ textAlign: "center" }}>No Data Found</h2>;
   }
@@ -41,7 +38,6 @@ function Carousel() {
           {slides.map((slide, index) => {
             const { title, subtitle, buttonText, image } = slide;
 
-            // ✅ FIXED: your image is array
             const imageUrl =
               image && image.length > 0
                 ? `http://localhost:1337${image[0].url}`
@@ -52,7 +48,6 @@ function Carousel() {
                 className={`carousel-item ${index === 0 ? "active" : ""}`}
                 key={slide.id}
               >
-                {/* ✅ Only render if image exists */}
                 {imageUrl && (
                   <img className="w-100" src={imageUrl} alt="carousel" />
                 )}
@@ -62,18 +57,15 @@ function Carousel() {
                     <div className="row justify-content-start">
                       <div className="col-lg-8">
 
-                        <p className="d-inline-block border border-white rounded text-primary fw-semi-bold py-1 px-3 animated slideInDown">
+                        <p className="d-inline-block border border-white rounded text-primary fw-semi-bold py-1 px-3">
                           {subtitle}
                         </p>
 
-                        <h1 className="display-1 mb-4 animated slideInDown">
+                        <h1 className="display-1 mb-4">
                           {title}
                         </h1>
 
-                        <a
-                          href="#"
-                          className="btn btn-primary py-3 px-5 animated slideInDown"
-                        >
+                        <a href="#" className="btn btn-primary py-3 px-5">
                           {buttonText}
                         </a>
 
@@ -87,7 +79,7 @@ function Carousel() {
 
         </div>
 
-        {/* Prev Button */}
+        {/* Buttons */}
         <button
           className="carousel-control-prev"
           type="button"
@@ -97,7 +89,6 @@ function Carousel() {
           <span className="carousel-control-prev-icon"></span>
         </button>
 
-        {/* Next Button */}
         <button
           className="carousel-control-next"
           type="button"

@@ -1,30 +1,54 @@
-import aboutImg from "../assets/img/about.jpg";
+import { useEffect, useState } from "react";
+import { getAbout } from "../api/api";
 
 function About() {
+  const [about, setAbout] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getAbout();
+        setAbout(res.data.data[0]); // single entry
+      } catch (error) {
+        console.error("Error fetching about:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const imageUrl = about?.image?.[0]?.url;
+
   return (
     <div className="container-xxl py-5">
       <div className="container">
 
         <div className="row g-4 align-items-end mb-4">
 
-          <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-            <img className="img-fluid rounded" src={aboutImg} alt="about" />
+          {/* IMAGE */}
+          <div className="col-lg-6 wow fadeInUp">
+            {imageUrl && (
+              <img
+                className="img-fluid rounded"
+                src={`http://localhost:1337${imageUrl}`}
+                alt="about"
+              />
+            )}
           </div>
 
-          <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+          {/* CONTENT */}
+          <div className="col-lg-6 wow fadeInUp">
 
             <p className="d-inline-block border rounded text-primary fw-semi-bold py-1 px-3">
               About Us
             </p>
 
             <h1 className="display-5 mb-4">
-              We Help Our Clients To Grow Their Business
+              {about?.title}
             </h1>
 
             <p className="mb-4">
-              Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. 
-              Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, 
-              sed stet lorem sit clita duo justo magna dolore erat amet
+              {about?.description}
             </p>
 
             <div className="border rounded p-4">
@@ -32,27 +56,15 @@ function About() {
               <nav>
                 <div className="nav nav-tabs mb-3">
 
-                  <button
-                    className="nav-link fw-semi-bold active"
-                    data-bs-toggle="tab"
-                    data-bs-target="#story"
-                  >
+                  <button className="nav-link fw-semi-bold active" data-bs-toggle="tab" data-bs-target="#story">
                     Story
                   </button>
 
-                  <button
-                    className="nav-link fw-semi-bold"
-                    data-bs-toggle="tab"
-                    data-bs-target="#mission"
-                  >
+                  <button className="nav-link fw-semi-bold" data-bs-toggle="tab" data-bs-target="#mission">
                     Mission
                   </button>
 
-                  <button
-                    className="nav-link fw-semi-bold"
-                    data-bs-toggle="tab"
-                    data-bs-target="#vision"
-                  >
+                  <button className="nav-link fw-semi-bold" data-bs-toggle="tab" data-bs-target="#vision">
                     Vision
                   </button>
 
@@ -62,36 +74,15 @@ function About() {
               <div className="tab-content">
 
                 <div className="tab-pane fade show active" id="story">
-                  <p>
-                    Tempor erat elitr rebum at clita. Diam dolor diam ipsum 
-                    et tempor sit. Aliqu diam amet diam et eos labore.
-                  </p>
-                  <p className="mb-0">
-                    Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam 
-                    et eos labore. Clita erat ipsum et lorem et sit
-                  </p>
+                  <p>{about?.story}</p>
                 </div>
 
                 <div className="tab-pane fade" id="mission">
-                  <p>
-                    Tempor erat elitr rebum at clita. Diam dolor diam ipsum 
-                    et tempor sit. Aliqu diam amet diam et eos labore.
-                  </p>
-                  <p className="mb-0">
-                    Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam 
-                    et eos labore. Clita erat ipsum et lorem et sit
-                  </p>
+                  <p>{about?.mission}</p>
                 </div>
 
                 <div className="tab-pane fade" id="vision">
-                  <p>
-                    Tempor erat elitr rebum at clita. Diam dolor diam ipsum 
-                    et tempor sit. Aliqu diam amet diam et eos labore.
-                  </p>
-                  <p className="mb-0">
-                    Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam 
-                    et eos labore. Clita erat ipsum et lorem et sit
-                  </p>
+                  <p>{about?.vision}</p>
                 </div>
 
               </div>
@@ -101,79 +92,48 @@ function About() {
           </div>
         </div>
 
-        <div className="border rounded p-4 wow fadeInUp" data-wow-delay="0.1s">
+        {/* FEATURES */}
+        <div className="border rounded p-4 wow fadeInUp">
 
           <div className="row g-4">
 
-            <div className="col-lg-4 wow fadeIn" data-wow-delay="0.1s">
-
-              <div className="h-100">
-
-                <div className="d-flex">
-
-                  <div className="flex-shrink-0 btn-lg-square rounded-circle bg-primary">
-                    <i className="fa fa-times text-white"></i>
-                  </div>
-
-                  <div className="ps-3">
-                    <h4>No Hidden Cost</h4>
-                    <span>Clita erat ipsum lorem sit sed stet duo justo</span>
-                  </div>
-
-                  <div className="border-end d-none d-lg-block"></div>
-
+            {/* Feature 1 */}
+            <div className="col-lg-4">
+              <div className="d-flex">
+                <div className="flex-shrink-0 btn-lg-square rounded-circle bg-primary">
+                  <i className="fa fa-times text-white"></i>
                 </div>
-
-                <div className="border-bottom mt-4 d-block d-lg-none"></div>
-
+                <div className="ps-3">
+                  <h4>{about?.feature1Title}</h4>
+                  <span>{about?.feature1Desc}</span>
+                </div>
               </div>
-
             </div>
 
-            <div className="col-lg-4 wow fadeIn" data-wow-delay="0.3s">
-
-              <div className="h-100">
-
-                <div className="d-flex">
-
-                  <div className="flex-shrink-0 btn-lg-square rounded-circle bg-primary">
-                    <i className="fa fa-users text-white"></i>
-                  </div>
-
-                  <div className="ps-3">
-                    <h4>Dedicated Team</h4>
-                    <span>Clita erat ipsum lorem sit sed stet duo justo</span>
-                  </div>
-
-                  <div className="border-end d-none d-lg-block"></div>
-
+            {/* Feature 2 */}
+            <div className="col-lg-4">
+              <div className="d-flex">
+                <div className="flex-shrink-0 btn-lg-square rounded-circle bg-primary">
+                  <i className="fa fa-users text-white"></i>
                 </div>
-
-                <div className="border-bottom mt-4 d-block d-lg-none"></div>
-
+                <div className="ps-3">
+                  <h4>{about?.feature2Title}</h4>
+                  <span>{about?.feature2Desc}</span>
+                </div>
               </div>
-
             </div>
 
-            <div className="col-lg-4 wow fadeIn" data-wow-delay="0.5s">
-
-              <div className="h-100">
-
-                <div className="d-flex">
-
-                  <div className="flex-shrink-0 btn-lg-square rounded-circle bg-primary">
-                    <i className="fa fa-phone text-white"></i>
-                  </div>
-
-                  <div className="ps-3">
-                    <h4>24/7 Available</h4>
-                    <span>Clita erat ipsum lorem sit sed stet duo justo</span>
-                  </div>
-
+            {/* Feature 3 */}
+            <div className="col-lg-4">
+              <div className="d-flex">
+                <div className="flex-shrink-0 btn-lg-square rounded-circle bg-primary">
+                  <i className="fa fa-phone text-white"></i>
                 </div>
-
+                <div className="ps-3">
+                  <h4>{about?.feature3Title}</h4>
+                  <span>{about?.feature3Desc}</span>
+                </div>
               </div>
-
             </div>
 
           </div>

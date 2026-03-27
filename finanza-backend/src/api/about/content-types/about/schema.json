@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "abouts",
+  "info": {
+    "singularName": "about",
+    "pluralName": "abouts",
+    "displayName": "about"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "story": {
+      "type": "text"
+    },
+    "mission": {
+      "type": "text"
+    },
+    "vision": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "feature1Title": {
+      "type": "string"
+    },
+    "feature1Desc": {
+      "type": "text"
+    },
+    "feature2Title": {
+      "type": "string"
+    },
+    "feature2Desc": {
+      "type": "text"
+    },
+    "feature3Title": {
+      "type": "string"
+    },
+    "feature3Desc": {
+      "type": "text"
+    }
+  }
+}

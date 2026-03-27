@@ -1,5 +1,5 @@
 {
-  "name": "finanza-backend",
+  "name": "new-project",
   "version": "0.1.0",
   "private": true,
   "description": "A Strapi application",
@@ -9,33 +9,31 @@
     "deploy": "strapi deploy",
     "dev": "strapi develop",
     "develop": "strapi develop",
+    "seed:example": "node ./scripts/seed.js",
     "start": "strapi start",
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.40.0",
-    "@strapi/plugin-users-permissions": "5.40.0",
-    "@strapi/strapi": "5.40.0",
-    "better-sqlite3": "12.6.2",
+    "@strapi/plugin-cloud": "5.38.0",
+    "@strapi/plugin-users-permissions": "5.38.0",
+    "@strapi/strapi": "5.38.0",
+    "better-sqlite3": "12.4.1",
+    "fs-extra": "^10.0.0",
+    "mime-types": "^2.1.27",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
     "styled-components": "^6.0.0"
   },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "typescript": "^5"
-  },
+  "devDependencies": {},
   "engines": {
     "node": ">=20.0.0 <=24.x.x",
     "npm": ">=6.0.0"
   },
   "strapi": {
-    "uuid": "c1c63089-85b3-4d40-858f-e1426a719cdf",
-    "installId": "fddd0ef00240e5c41a034287beee3380080e1cbc11aa887efbbc1e48f3aa7516"
+    "uuid": "f99f3de0-3989-4a27-ae35-77f96a11d8a6",
+    "installId": "9c6ca8535a72c7fc7fe769859e30558e6b5d57266472ec9635085fcd61f25a98"
   }
 }

@@ -11,11 +11,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "subtitle": {
-      "type": "text"
-    },
     "title": {
       "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
     },
     "buttonText": {
       "type": "string"

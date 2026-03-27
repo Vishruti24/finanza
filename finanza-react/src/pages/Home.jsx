@@ -7,28 +7,28 @@ import Contact from "../components/Contact";
 function Home() {
   return (
     <>
-      {/* 🔥 Home Section (Carousel here) */}
-      <section id="home">
+      {/*  Home Section */}
+      <section id="home" style={{ scrollMarginTop: "100px" }}>
         <Carousel />
       </section>
 
       {/* About */}
-      <section id="about">
+      <section id="about" style={{ scrollMarginTop: "100px" }}>
         <About />
       </section>
 
       {/* Services */}
-      <section id="services">
+      <section id="services" style={{ scrollMarginTop: "100px" }}>
         <Services />
       </section>
 
       {/* Projects */}
-      <section id="projects">
+      <section id="projects" style={{ scrollMarginTop: "100px" }}>
         <Projects />
       </section>
 
       {/* Contact */}
-      <section id="contact">
+      <section id="contact" style={{ scrollMarginTop: "100px" }}>
         <Contact />
       </section>
     </>
