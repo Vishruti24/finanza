@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCarousels } from "../api/api";
+import { getImage } from "../utils/getImage";
 
 function Carousel() {
   const [slides, setSlides] = useState([]);
@@ -8,7 +9,6 @@ function Carousel() {
   useEffect(() => {
     getCarousels()
       .then((res) => {
-        console.log("API DATA:", res.data);
         setSlides(res.data.data);
         setLoading(false);
       })
@@ -27,7 +27,7 @@ function Carousel() {
   }
 
   return (
-    <div className="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div className="container-fluid p-0 mb-5 wow fadeIn">
       <div
         id="header-carousel"
         className="carousel slide carousel-fade"
@@ -36,12 +36,7 @@ function Carousel() {
         <div className="carousel-inner">
 
           {slides.map((slide, index) => {
-            const { title, subtitle, buttonText, image } = slide;
-
-            const imageUrl =
-              image && image.length > 0
-                ? `http://localhost:1337${image[0].url}`
-                : null;
+            const imageUrl = getImage(slide.image);
 
             return (
               <div
@@ -58,28 +53,28 @@ function Carousel() {
                       <div className="col-lg-8">
 
                         <p className="d-inline-block border border-white rounded text-primary fw-semi-bold py-1 px-3">
-                          {subtitle}
+                          {slide.subtitle}
                         </p>
 
                         <h1 className="display-1 mb-4">
-                          {title}
+                          {slide.title}
                         </h1>
 
                         <a href="#" className="btn btn-primary py-3 px-5">
-                          {buttonText}
+                          {slide.buttonText}
                         </a>
 
                       </div>
                     </div>
                   </div>
                 </div>
+
               </div>
             );
           })}
 
         </div>
 
-        {/* Buttons */}
         <button
           className="carousel-control-prev"
           type="button"

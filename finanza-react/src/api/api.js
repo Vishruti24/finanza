@@ -1,8 +1,15 @@
 import axios from "axios";
 
+// const API = 
+// axios.create({
+//   baseURL: "http://localhost:1337/api",
+// });
+
 const API = axios.create({
-  baseURL: "http://localhost:1337/api",
+   baseURL: "https://sparkling-connection-41d235254c.strapiapp.com/api",
 });
+
+const BASE_URL = "https://sparkling-connection-41d235254c.strapiapp.com";
 
 export const getCarousels = () =>
   API.get("/carousels?populate=*");
@@ -21,3 +28,4 @@ export const getFooter = () =>
 
 export const createContact = (data) =>
   API.post("/contacts", { data });
+
